@@ -1,0 +1,66 @@
+// Financial Sample Star Schema
+
+// Dimensões
+
+Table D_Produtos {
+  ID_produto integer [primary key]
+  Produto varchar(255)
+  Media_de_Unidades_Vendidas decimal
+  Medias_valor_vendas decimal
+  Mediana_valor_vendas decimal
+  Valor_max_Venda decimal
+  Valor_min_Venda decimal
+}
+
+Table D_Produtos_Detalhes {
+  ID_produto integer [primary key]
+  Discount_Band varchar(255)
+  Sale_Price decimal
+  Units_Sold integer
+  Manufactoring_Price decimal
+}
+
+Table D_Descontos {
+  ID_produto integer [primary key]
+  Discount decimal
+  Discount_Band varchar(255)
+}
+
+Table D_Detalhes {
+  Segment varchar(255)
+  Country varchar(255)
+  Sellers varchar(255)
+  Profit decimal
+}
+
+// Fato
+
+Table F_Vendas {
+  SK_ID integer [primary key]
+  ID_Produto integer
+  Produto varchar(255)
+  Units_Sold integer
+  Sales_Price decimal
+  Discount_Band varchar(255)
+  Segment varchar(255)
+  Country varchar(255)
+  Sellers varchar(255)
+  Profit decimal
+  Date_ID integer
+}
+
+Table D_Calendário {
+  Date_ID integer [primary key]
+  Date date
+  Quarter integer
+  Year integer
+}
+
+// Relações
+
+Ref: F_Vendas.ID_Produto > D_Produtos.ID_produto // one-to-one
+Ref: F_Vendas.Date_ID > D_Calendário.Date_ID // many-to-one
+
+Ref: "D_Produtos_Detalhes"."ID_produto" < "F_Vendas"."ID_Produto"
+
+Ref: "F_Vendas"."ID_Produto" < "D_Descontos"."ID_produto"
