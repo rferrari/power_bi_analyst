@@ -1,0 +1,46 @@
+Table Professor { 
+  Professor_ID integer [primary key] 
+  Instructor_Name varchar(255) 
+  Department_Name varchar(255) 
+  University_ID integer 
+}
+
+Table Course { 
+  Course_ID integer [primary key] 
+  Discipline_ID integer 
+  Professor_ID integer 
+  Title varchar(255) 
+}
+
+Table Department { Department_ID integer [primary key] 
+Departamento varchar(255) 
+University_ID integer 
+Campus_ID integer 
+  }
+
+Table University { 
+  University_ID integer [primary key] 
+  University_Name varchar(255) 
+  }
+
+Table Professor_Course_Participation { 
+  Professor_ID integer 
+  Course_ID integer 
+  Department_ID integer 
+  University_ID integer 
+  Date_ID interger
+   }
+
+Table Date { 
+  Date_ID integer [primary key] 
+  Date date 
+  Quarter integer 
+  Year integer 
+  }
+
+
+Ref: Professor_Course_Participation.Professor_ID > Professor.Professor_ID // many-to-one 
+Ref: Professor_Course_Participation.University_ID > University.University_ID // many-to-one 
+Ref: Professor_Course_Participation.Course_ID > Course.Course_ID // many-to-one 
+Ref: Professor_Course_Participation.Department_ID > Department.Department_ID // many-to-one
+Ref: Professor_Course_Participation.Date_ID > Date.Date_ID // many-to-one
